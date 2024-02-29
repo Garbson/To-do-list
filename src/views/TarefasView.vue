@@ -1,80 +1,45 @@
 <template>
-  <div
-    class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('/img/background.png')]"
-  >
+  <div class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('/img/background.png')]">
     <TheSidebar></TheSidebar>
-    <div class="flex justify-center items-center">
-      <div
-        class="max-w-lg w-11/12 h-full mb-5 p-8 bg-white rounded-lg shadow-md relative mt-5"
-      >
-        <h1
-          class="text-3xl font-semibold text-blue-600 mb-4 flex justify-center"
-        >
-          Agenda de Tarefas
+    <div class=" flex justify-center items-center">
+      <div class="a w-10/12 h-full mb-5 p-8 bg-white rounded-lg shadow-md relative mt-5">
+        <h1 class="text-3xl font-semibold text-blue-600 mb-4 flex justify-center">
+          Quadro de Tarefas
         </h1>
-        <div class="mb-4">
-          <input
-            v-model="novaTarefa.titulo"
-            class="w-full p-2 border rounded shadow-md"
-            placeholder="Título da Tarefa"
-          />
-        </div>
-        <div class="mb-4">
-          <textarea
-            v-model="novaTarefa.conteudo"
-            class="w-full p-2 border rounded shadow-md"
-            placeholder="Descrição da Tarefa"
-          ></textarea>
-        </div>
-        <div class="mb-4">
-          <label>Data de Entrega:</label>
-          <input
-            type="date"
-            v-model="novaTarefa.dataEntrega"
-            class="w-full p-2 border rounded shadow-md"
-          />
-        </div>
-        <div class="mb-4">
-          <button
-            @click="adicionarTarefa"
-            class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
-          >
-            Adicionar Tarefa
-          </button>
-        </div>
-        <div class="tarefas" :style="{ 'max-height': cardHeight + 'px' }">
-          <div
-            class="tarefas-content"
-            :style="{
-              'max-height': cardHeight - 100 + 'px',
-              'overflow-y': maxHeightReached ? 'auto' : 'visible',
-            }"
-          >
-            <div
-              v-for="(tarefa, index) in tarefas"
-              :key="index"
-              class="mb-4 border p-4 rounded shadow-md"
-            >
-              <h2 class="text-xl font-semibold text-blue-600">
-                {{ tarefa.titulo }}
-              </h2>
-              <p class="text-gray-700">{{ tarefa.conteudo }}</p>
-              <p><strong>Data de Entrega:</strong> {{ tarefa.dataEntrega }}</p>
-              <label class="mt-2  flex items-center">
-                <input
-                  type="checkbox"
-                  v-model="tarefa.concluida"
-                  class="mr-2 border rounded"
-                />
-                Concluída
-              </label>
-              <button
-                @click="removerTarefa(index)"
-                class="bg-red-600 text-white py-1 px-2 mt-2 rounded hover:bg-red-700"
-              >
-                Excluir
+        <!-- Tarefas em forma de quadro -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4"> <!-- Ajustado o grid para telas menores -->
+          <div v-for="(tarefa, index) in tarefas" :key="index" class="p-4 border rounded-md flex flex-col items-start relative">
+            <p :class="{ 'line-through': tarefa.concluida }">{{ tarefa.texto }}</p>
+            <div class="flex items-center mt-2">
+              <p v-if="tarefa.data" class="mr-2">
+                <i class="fas fa-calendar-alt"></i> {{ tarefa.data }}
+              </p>
+              <p v-if="tarefa.hora">
+                <i class="fas fa-clock"></i> {{ tarefa.hora }}
+              </p>
+            </div>
+            <div class="absolute bottom-4 right-4">
+              <!-- Ícone para marcar como concluída -->
+              <button @click="marcarComoConcluida(index)" class="text-green-600">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </button>
+              <!-- Ícone para excluir tarefa -->
+              <button @click="removerTarefa(index)" class="text-red-600 ml-2">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
               </button>
             </div>
+          </div>
+        </div>
+
+        <!-- Modal para confirmar a adição de tarefa -->
+        <div v-if="showModal" class="modal">
+          <div class="modal-content">
+            <span @click="showModal = false" class="close">&times;</span>
+            <p>Tarefa adicionada com sucesso!</p>
           </div>
         </div>
       </div>
@@ -83,26 +48,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
-import TheSidebar from "../components/TheSidebar.vue";
-
-const novaTarefa = ref({
-  titulo: "",
-  conteudo: "",
-  dataEntrega: "",
-  concluida: false,
-});
+import { ref, onMounted } from 'vue';
+import TheSidebar from '../components/TheSidebar.vue';
 
 const tarefas = ref([]);
+const showModal = ref(false); // Variável reativa para controlar a exibição do modal
 
-const adicionarTarefa = () => {
-  tarefas.value.push({ ...novaTarefa.value });
-  novaTarefa.value = {
-    titulo: "",
-    conteudo: "",
-    dataEntrega: "",
-    concluida: false,
-  };
+const carregarTarefasDoLocalStorage = () => {
+  const tarefasSalvas = localStorage.getItem('tarefas');
+  if (tarefasSalvas) {
+    tarefas.value = JSON.parse(tarefasSalvas);
+  }
+};
+
+const marcarComoConcluida = (index) => {
+  tarefas.value[index].concluida = true;
   salvarTarefasNoLocalStorage();
 };
 
@@ -112,23 +72,25 @@ const removerTarefa = (index) => {
 };
 
 const salvarTarefasNoLocalStorage = () => {
-  localStorage.setItem("tarefas", JSON.stringify(tarefas.value));
+  localStorage.setItem('tarefas', JSON.stringify(tarefas.value));
 };
 
-const carregarTarefasDoLocalStorage = () => {
-  const tarefasSalvas = localStorage.getItem("tarefas");
-  if (tarefasSalvas) {
-    tarefas.value = JSON.parse(tarefasSalvas);
-  }
+const adicionarTarefa = () => {
+  // Simulando adição de tarefa com sucesso
+  showModal.value = true;
+  setTimeout(() => {
+    showModal.value = false;
+  }, 3000); // Fechar o modal após 3 segundos
 };
 
 onMounted(() => {
   carregarTarefasDoLocalStorage();
 });
-
-// Calcula a altura máxima com base na altura da janela
-const cardHeight = computed(() => window.innerHeight - 200); // Ajuste conforme necessário
-const maxHeightReached = computed(
-  () => cardHeight.value - 100 <= tarefas.value.length * 150
-); // 150px é a altura estimada de cada item
 </script>
+
+<style>
+.line-through {
+  text-decoration: line-through;
+}
+/* Ajustes de estilo conforme necessário */
+</style>

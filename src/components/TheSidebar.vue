@@ -1,20 +1,32 @@
 <template>
   <div class="bg-gradient-to-r from-blue-600 to-indigo-500 mb-5">
-    <button v-if="!isSidebarOpen" class="sidebar-toggle" @click="toggleSidebar">
-    </button>
+    <button
+      v-if="!isSidebarOpen"
+      class="sidebar-toggle"
+      @click="toggleSidebar"
+    ></button>
     <aside
-      :class="{ 'sidebar-open': isSidebarOpen, 'sidebar-close': !isSidebarOpen }"
+      :class="{
+        'sidebar-open': isSidebarOpen,
+        'sidebar-close': !isSidebarOpen,
+      }"
     >
       <div class="sidebar-card">
         <nav class="flex justify-center items-center p-7">
-         
-          <RouterLink to="/rotina" @click="closeSidebar" class="text-white hover:text-orange-500">Rotina</RouterLink>
+          <RouterLink
+            to="/viagens"
+            @click="closeSidebar"
+            class="text-white hover:text-orange-500"
+            >To do list</RouterLink
+          >
           <p class="text-white">||</p>
-          <RouterLink to="/Metas" @click="closeSidebar" class="text-white hover:text-orange-500">Metas</RouterLink>
-          <p class="text-white">||</p>
-          <RouterLink to="/tarefas" @click="closeSidebar" class="text-white hover:text-orange-500">Tarefas</RouterLink>
-          <p class="text-white">||</p>
-          <RouterLink to="/viagens" @click="closeSidebar" class="text-white hover:text-orange-500">Viagens</RouterLink>
+
+          <RouterLink
+            to="/tarefas"
+            @click="closeSidebar"
+            class="text-white hover:text-orange-500"
+            >Tarefas</RouterLink
+          >
         </nav>
       </div>
     </aside>
@@ -62,7 +74,7 @@ const closeSidebar = () => {
 }
 
 .sidebar-card {
-   /* Azul padrão */
+  /* Azul padrão */
   padding: 10px;
   border-radius: 0; /* Sem bordas arredondadas */
   box-shadow: none; /* Sem sombreamento */
