@@ -80,9 +80,6 @@
       </div>
     </div> 
   </template>
-  
-
-
 <script setup>
 import { ref, onMounted } from "vue";
 import TheSidebar from "../components/TheSidebar.vue";

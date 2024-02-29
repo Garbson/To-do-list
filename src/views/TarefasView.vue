@@ -46,7 +46,6 @@
     </div>
   </div>
 </template>
-
 <script setup>
 import { ref, onMounted } from 'vue';
 import TheSidebar from '../components/TheSidebar.vue';
@@ -60,7 +59,6 @@ const carregarTarefasDoLocalStorage = () => {
     tarefas.value = JSON.parse(tarefasSalvas);
   }
 };
-
 const marcarComoConcluida = (index) => {
   tarefas.value[index].concluida = true;
   salvarTarefasNoLocalStorage();
