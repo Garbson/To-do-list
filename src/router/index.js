@@ -35,7 +35,7 @@ const router = createRouter({
     {
       path: "/rotina",
       name: "rotina",
-      component: () => import("../views/RotinaView.vue"),
+      component: () => import("../views/RotinasView.vue"),
       meta: { requiresAuth: true }, // Requer autenticação
     },
   ],
