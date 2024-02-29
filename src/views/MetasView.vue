@@ -3,7 +3,7 @@
     <TheSidebar></TheSidebar>
     <div class="flex justify-center items-center">
       <div class="max-w-lg w-11/12 h-full mb-5 p-8 bg-white rounded-lg shadow-md relative mt-5">
-        <h1 class="text-3xl font-semibold text-blue-600 mb-4 flex justify-center">Meu Caderno de Metas</h1>
+        <h1 class="text-3xl font-semibold text-blue-600 mb-4 flex justify-center">Meu caderno de Metas</h1>
         <div class="mb-4">
           <input
             v-model="novaAnotacao.titulo"
