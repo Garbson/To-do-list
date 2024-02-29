@@ -77,7 +77,7 @@ function fazerLogin() {
     // Definir a variável "auth" como true após o login bem-sucedido
     localStorage.setItem("auth", "true");
 
-    router.push("/rotina");
+    router.push("/viagens");
   } else {
     alert("Credenciais incorretas. Tente novamente.");
   }
