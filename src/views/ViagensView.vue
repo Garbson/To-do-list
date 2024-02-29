@@ -170,9 +170,7 @@ updateTarefas();
 </script>
 
 <style scoped>
-/* Estilos para o modal */
-/* Estilos para o prompt */
-/* Estilos para o prompt */
+
 #custom-alert {
   display: none;
   position: fixed;

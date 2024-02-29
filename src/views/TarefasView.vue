@@ -75,22 +75,16 @@ const salvarTarefasNoLocalStorage = () => {
   localStorage.setItem('tarefas', JSON.stringify(tarefas.value));
 };
 
-const adicionarTarefa = () => {
-  // Simulando adição de tarefa com sucesso
-  showModal.value = true;
-  setTimeout(() => {
-    showModal.value = false;
-  }, 3000); // Fechar o modal após 3 segundos
-};
+
 
 onMounted(() => {
   carregarTarefasDoLocalStorage();
 });
 </script>
 
-<style>
+<style scoped>
 .line-through {
   text-decoration: line-through;
 }
-/* Ajustes de estilo conforme necessário */
+
 </style>
