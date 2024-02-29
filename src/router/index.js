@@ -13,13 +13,6 @@ const router = createRouter({
       name: "registro",
       component: () => import("../views/RegistroView.vue"),
     },
- 
-    {
-      path: "/metas",
-      name: "metas",
-      component: () => import("../views/MetasView.vue"),
-      meta: { requiresAuth: true }, // Requer autenticação
-    },
     {
       path: "/tarefas",
       name: "tarefas",
