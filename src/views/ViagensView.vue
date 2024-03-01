@@ -82,162 +82,161 @@
       </div>
     </div> 
   </template>
-<script setup>
-import { ref, onMounted } from "vue";
-import TheSidebar from "../components/TheSidebar.vue";
-
-const novaTarefa = ref({
-  texto: "",
-  data: "",
-  hora: "",
-  concluida: false,
-});
-const tarefas = ref([]);
-
-// Definir a variável reativa para controlar a exibição do prompt
-const showPrompt = ref(false);
-
-// Função para fechar o prompt
-const fecharPrompt = () => {
-  showPrompt.value = false;
-};
-
-// Função para adicionar uma nova tarefa
-const adicionarTarefa = () => {
-  if (novaTarefa.value.texto.trim() !== "") {
-    tarefas.value.push({ ...novaTarefa.value });
-    novaTarefa.value = { texto: "", data: "", hora: "", concluida: false };
-    salvarTarefasNoLocalStorage();
-    if (tarefas.value.length >= 3) {
-      setTimeout(() => {
-        window.scrollTo({
-          top: document.body.scrollHeight,
-          behavior: "smooth",
+  
+  <script setup>
+  import { ref, onMounted } from "vue";
+  import TheSidebar from "../components/TheSidebar.vue";
+  
+  const novaTarefa = ref({
+    texto: "",
+    data: "",
+    hora: "",
+    concluida: false,
+  });
+  const tarefas = ref([]);
+  
+  // Definir a variável reativa para controlar a exibição do prompt
+  const showPrompt = ref(false);
+  
+  // Função para fechar o prompt
+  const fecharPrompt = () => {
+    showPrompt.value = false;
+  };
+  
+  // Função para adicionar uma nova tarefa
+  const adicionarTarefa = () => {
+    if (novaTarefa.value.texto.trim() !== "") {
+      tarefas.value.push({ ...novaTarefa.value });
+      novaTarefa.value = { texto: "", data: "", hora: "", concluida: false };
+      salvarTarefasNoLocalStorage();
+      if (tarefas.value.length >= 3) {
+        setTimeout(() => {
+          window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth",
+          });
         });
-      });
+      }
+      // Exibir o prompt
+      showPrompt.value = true;
+      // Fechar o prompt após alguns segundos
+      setTimeout(() => {
+        showPrompt.value = false;
+        
+      }, 6000);
     }
-    // Exibir o prompt
-    showPrompt.value = true;
-    // Fechar o prompt após alguns segundos
-    setTimeout(() => {
-      showPrompt.value = false;
-      
-    }, 6000);
+  };
+  
+  const removerTarefa = (index) => {
+    tarefas.value.splice(index, 1);
+    salvarTarefasNoLocalStorage();
+  };
+  
+  const toggleConcluida = (index) => {
+    tarefas.value[index].concluida = !tarefas.value[index].concluida;
+    salvarTarefasNoLocalStorage();
+  };
+  
+  const salvarTarefasNoLocalStorage = () => {
+    localStorage.setItem("tarefas", JSON.stringify(tarefas.value));
+  };
+  
+  const carregarTarefasDoLocalStorage = () => {
+    const tarefasSalvas = localStorage.getItem("tarefas");
+    if (tarefasSalvas) {
+      tarefas.value = JSON.parse(tarefasSalvas);
+    }
+  };
+  
+  onMounted(() => {
+    carregarTarefasDoLocalStorage();
+  });
+  
+  // Calcula a altura máxima com base na altura da janela
+  const cardHeight = window.innerHeight - 200; // Ajuste conforme necessário
+  
+  // Filtra tarefas concluídas e não concluídas
+  const tarefasConcluidas = ref([]);
+  const tarefasNaoConcluidas = ref([]);
+  
+  // Atualiza tarefas concluídas e não concluídas sempre que houver uma mudança nas tarefas
+  const updateTarefas = () => {
+    tarefasConcluidas.value = tarefas.value.filter((tarefa) => tarefa.concluida);
+    tarefasNaoConcluidas.value = tarefas.value.filter(
+      (tarefa) => !tarefa.concluida
+    );
+  };
+  updateTarefas();
+  </script>
+  
+  <style scoped>
+  #custom-alert {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-};
-
-const removerTarefa = (index) => {
-  tarefas.value.splice(index, 1);
-  salvarTarefasNoLocalStorage();
-};
-
-const toggleConcluida = (index) => {
-  tarefas.value[index].concluida = !tarefas.value[index].concluida;
-  salvarTarefasNoLocalStorage();
-};
-
-const salvarTarefasNoLocalStorage = () => {
-  localStorage.setItem("tarefas", JSON.stringify(tarefas.value));
-};
-
-const carregarTarefasDoLocalStorage = () => {
-  const tarefasSalvas = localStorage.getItem("tarefas");
-  if (tarefasSalvas) {
-    tarefas.value = JSON.parse(tarefasSalvas);
+  
+  .card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
   }
-};
-
-onMounted(() => {
-  carregarTarefasDoLocalStorage();
-});
-
-// Calcula a altura máxima com base na altura da janela
-const cardHeight = window.innerHeight - 200; // Ajuste conforme necessário
-
-// Filtra tarefas concluídas e não concluídas
-const tarefasConcluidas = ref([]);
-const tarefasNaoConcluidas = ref([]);
-
-// Atualiza tarefas concluídas e não concluídas sempre que houver uma mudança nas tarefas
-const updateTarefas = () => {
-  tarefasConcluidas.value = tarefas.value.filter((tarefa) => tarefa.concluida);
-  tarefasNaoConcluidas.value = tarefas.value.filter(
-    (tarefa) => !tarefa.concluida
-  );
-};
-updateTarefas();
-</script>
-
-<style scoped>
-
-#custom-alert {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.card {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.card button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 8px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.card button:hover {
-  background-color: #0056b3;
-}
-
-/* Estilos para o botão de fechar */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-input[type="date"] {
-    /* Altere esses valores conforme necessário */
-    background-color: white; /* Cor de fundo */
-    border: 1px solid #ccc; /* Borda */
-    border-radius: 4px; /* Arredondamento dos cantos */
-    padding: 8px; /* Espaçamento interno */
+  
+  .card button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .card button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estilos para o botão de fechar */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* Estilizando o input para data */
+  input[type="date"]::placeholder {
+    color: #ccc;
     font-size: 16px;
-     /* Tamanho da fonte */
   }
-
+  
   /* Estilizando o input para hora */
-  input[type="time"] {
-    /* Altere esses valores conforme necessário */
-    background-color: white; /* Cor de fundo */
-    border: 1px solid #ccc; /* Borda */
-    border-radius: 4px; /* Arredondamento dos cantos */
-    padding: 8px; /* Espaçamento interno */
-    font-size: 16px; /* Tamanho da fonte */
+  input[type="time"]::placeholder {
+    color: #ccc;
+    font-size: 16px;
   }
-
-/* Estilos para responsividade */
-</style>
+  
+  /* Estilos para responsividade em dispositivos móveis */
+  @media screen and (max-width: 640px) {
+    .max-w-lg {
+      width: 90%;
+    }
+  }
+  </style>
+  
