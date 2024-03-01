@@ -13,7 +13,7 @@
           To Do List
         </h1>
         <!-- Input fields for task -->
-        <div class="mb-4">
+        <div class="mb-5">
           <input
             v-model="novaTarefa.texto"
             @keyup.enter="adicionarTarefa"
@@ -22,10 +22,16 @@
           />
         </div>
         <!-- Ajustado o grid para telas menores -->
-        
+
         <div class="mb-4 flex items-center q-col-gutter-sm">
           <!-- Utilizando componentes de data e hora do Quasar -->
-          <q-input filled class="w-1/2 " v-model="novaTarefa.data" mask="date" :rules="['date']">
+          <q-input
+            filled
+            class="w-1/2"
+            v-model="novaTarefa.data"
+            mask="date"
+            :rules="['date']"
+          >
             <template v-slot:prepend>
               <q-icon name="event" class="cursor-pointer">
                 <q-popup-proxy
@@ -43,27 +49,36 @@
             </template>
           </q-input>
 
-          
-          <q-input filled class="w-1/2" v-model="novaTarefa.hora" mask="time" :rules="['time']">
-        <template v-slot:append>
-          <q-icon name="access_time" class="cursor-pointer">
-            <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-              <q-time v-model="novaTarefa.hora">
-                <div class="row items-center justify-end">
-                  <q-btn v-close-popup label="Close" color="primary" flat />
-                </div>
-              </q-time>
-            </q-popup-proxy>
-          </q-icon>
-        </template>
-      </q-input>
+          <q-input
+            filled
+            class="w-1/2"
+            v-model="novaTarefa.hora"
+            mask="time"
+            :rules="['time']"
+          >
+            <template v-slot:prepend>
+              <q-icon name="access_time" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-time v-model="novaTarefa.hora">
+                    <div class="row items-center justify-end">
+                      <q-btn v-close-popup label="Close" color="primary" flat />
+                    </div>
+                  </q-time>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
         </div>
 
         <!-- adcionar tarefa -->
-        <div class="mb-4 text-center">
+        <div class="mb-4">
           <button
             @click="adicionarTarefa"
-            class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 text-sm "
+            class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 text-sm"
           >
             Adicionar Tarefa
           </button>
@@ -73,8 +88,8 @@
         <div id="custom-alert" v-if="showPrompt">
           <div class="card">
             <p>
-              A tarefa foi adicionada com sucesso,<br />Click em 
-              visualizar Tarefas!
+              A tarefa foi adicionada com sucesso,<br />Click em visualizar
+              Tarefas!
             </p>
             <button @click="fecharPrompt" class="text-sm">Fechar</button>
           </div>
