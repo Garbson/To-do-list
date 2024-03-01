@@ -1,23 +1,21 @@
 <template>
   <div class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('/img/background.png')]">
     <TheSidebar></TheSidebar>
-    <div class=" flex justify-center items-center">
+    <div class="flex justify-center items-center">
       <div class="a w-10/12 h-full mb-5 p-8 bg-white rounded-lg shadow-md relative mt-5">
         <h1 class="text-3xl font-semibold text-blue-600 mb-4 flex justify-center">
           Quadro de Tarefas
         </h1>
         <!-- Tarefas em forma de quadro -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4"> <!-- Ajustado o grid para telas menores -->
-          <div v-for="(tarefa, index) in tarefas" :key="index" class="p-4 border rounded-md flex flex-col items-start relative">
-            <p :class="{ 'line-through': tarefa.concluida }">{{ tarefa.texto }}</p>
-            <div class="flex items-center mt-2">
-              <p v-if="tarefa.data" class="mr-2">
-                <i class="fas fa-calendar-alt"></i> {{ tarefa.data }}
-              </p>
-              <p v-if="tarefa.hora">
-                <i class="fas fa-clock"></i> {{ tarefa.hora }}
-              </p>
-            </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4"> <!-- Ajustado o grid para telas menores -->
+          <div v-for="(tarefa, index) in tarefas" :key="index" class="p-4 border rounded-md w-[90%] flex flex-col items-start relative">
+            <p :class="{ 'line-through': tarefa.concluida }" class="break-words">{{ tarefa.texto }}</p>
+            <label v-if="tarefa.data" class="mr-2">
+              <i class="fas fa-calendar-alt"></i> {{ tarefa.data }}
+            </label>
+            <label v-if="tarefa.hora">
+              <i class="fas fa-clock"></i> {{ tarefa.hora }}
+            </label>
             <div class="absolute bottom-4 right-4">
               <!-- Ícone para marcar como concluída -->
               <button @click="marcarComoConcluida(index)" class="text-green-600">
@@ -72,8 +70,6 @@ const removerTarefa = (index) => {
 const salvarTarefasNoLocalStorage = () => {
   localStorage.setItem('tarefas', JSON.stringify(tarefas.value));
 };
-
-
 
 onMounted(() => {
   carregarTarefasDoLocalStorage();

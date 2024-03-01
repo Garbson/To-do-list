@@ -217,6 +217,24 @@ updateTarefas();
   text-decoration: none;
   cursor: pointer;
 }
+input[type="date"] {
+    /* Altere esses valores conforme necessário */
+    background-color: white; /* Cor de fundo */
+    border: 1px solid #ccc; /* Borda */
+    border-radius: 4px; /* Arredondamento dos cantos */
+    padding: 8px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+  }
+
+  /* Estilizando o input para hora */
+  input[type="time"] {
+    /* Altere esses valores conforme necessário */
+    background-color: white; /* Cor de fundo */
+    border: 1px solid #ccc; /* Borda */
+    border-radius: 4px; /* Arredondamento dos cantos */
+    padding: 8px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+  }
 
 /* Estilos para responsividade */
 </style>
