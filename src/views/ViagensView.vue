@@ -220,16 +220,14 @@
     cursor: pointer;
   }
   
-  /* Estilizando o input para data */
+  /* Estilizando o placeholder para data */
   input[type="date"]::placeholder {
-    color: #ccc;
-    font-size: 16px;
+    color: #aaa;
   }
   
-  /* Estilizando o input para hora */
+  /* Estilizando o placeholder para hora */
   input[type="time"]::placeholder {
-    color: #ccc;
-    font-size: 16px;
+    color: #aaa;
   }
   
   /* Estilos para responsividade em dispositivos móveis */
@@ -239,4 +237,5 @@
     }
   }
   </style>
+  
   
