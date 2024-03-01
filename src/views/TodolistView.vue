@@ -1,11 +1,11 @@
 <template>
   <div
-    class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('/img/background.png')]"
+    class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('/img/background.jpg')]"
   >
     <TheSidebar></TheSidebar>
     <div class="flex justify-center items-center">
       <div
-        class="max-w-lg w-11/12 h-full mb-5 p-8 bg-white rounded-lg shadow-md relative mt-5"
+        class="max-w-lg w-11/12 h-2/5 mb-5 p-8 bg-white rounded-lg shadow-md relative mt-5"
       >
         <h1
           class="text-3xl font-semibold text-blue-600 mb-4 flex justify-center"
@@ -17,31 +17,46 @@
           <input
             v-model="novaTarefa.texto"
             @keyup.enter="adicionarTarefa"
-            class="w-full p-2 border rounded shadow-md"
+            class="w-full p-4 border rounded shadow-md "
             placeholder="Adicionar nova tarefa"
           />
         </div>
-        <div class="mb-4">
-          <input
-            v-model="novaTarefa.data"
-            placeholder="Data"
-            type="date"
-            class="w-full p-2 border rounded shadow-md"
-          />
+        <!-- Ajustado o grid para telas menores -->
+        <div class="mb-4 flex items-center">
+          <!-- Utilizando inputs padrão para data e hora -->
+          <div class="flex-1 relative">
+            <input
+              v-model="novaTarefa.data"
+              type="date"
+              class="w-full p-4 border rounded shadow-md"
+            />
+            <span
+              v-show="showDatepicker"
+              class="absolute right-0 top-0 bottom-0 flex items-center px-2 cursor-pointer"
+            >
+              <i class="far fa-calendar-alt"></i>
+            </span>
+          </div>
+          <div class="flex-1 relative ml-2">
+            <input
+              v-model="novaTarefa.hora"
+              type="time"
+              class="w-full p-4 border rounded shadow-md"
+            />
+            <span
+              v-show="showTimepicker"
+              class="absolute right-0 top-0 bottom-0 flex items-center px-2 cursor-pointer"
+            >
+              <i class="far fa-clock"></i>
+            </span>
+          </div>
         </div>
-        <div class="mb-4">
-          <input
-            v-model="novaTarefa.hora"
-            type="time"
-            placeholder="Horário"
-            class="w-full p-2 border rounded shadow-md"
-          />
-        </div>
+
         <!-- adcionar tarefa -->
-        <div class="mb-4 relative">
+        <div class="mb-4 text-center">
           <button
             @click="adicionarTarefa"
-            class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+            class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 text-sm mx-auto"
           >
             Adicionar Tarefa
           </button>
@@ -54,7 +69,7 @@
               A tarefa foi adicionada com sucesso,<br />Click em tarefas para
               visualizar!
             </p>
-            <button @click="fecharPrompt">Fechar</button>
+            <button @click="fecharPrompt" class="text-sm">Fechar</button>
           </div>
         </div>
       </div>
@@ -73,16 +88,14 @@ const novaTarefa = ref({
   concluida: false,
 });
 const tarefas = ref([]);
-
-// Definir a variável reativa para controlar a exibição do prompt
 const showPrompt = ref(false);
+const showDatepicker = ref(false);
+const showTimepicker = ref(false);
 
-// Função para fechar o prompt
 const fecharPrompt = () => {
   showPrompt.value = false;
 };
 
-// Função para adicionar uma nova tarefa
 const adicionarTarefa = () => {
   if (novaTarefa.value.texto.trim() !== "") {
     tarefas.value.push({ ...novaTarefa.value });
@@ -96,7 +109,7 @@ const adicionarTarefa = () => {
         });
       });
     }
-    showPrompt.value = true;  
+    showPrompt.value = true;
     setTimeout(() => {
       showPrompt.value = false;
     }, 6000);
@@ -145,7 +158,7 @@ onMounted(() => {
   background-color: #007bff;
   color: #fff;
   border: none;
-  padding: 8px 20px;
+  padding: 4px 12px;
   border-radius: 4px;
   cursor: pointer;
   margin-top: 10px;
@@ -154,7 +167,4 @@ onMounted(() => {
 .card button:hover {
   background-color: #0056b3;
 }
-
-
-
 </style>

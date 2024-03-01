@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('/img/background.png')] text-center items-center object-center justify-center"
+    class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('/img/background.jpg')] text-center items-center object-center justify-center"
   >
     <div
       class="Card bg-gradient-to-r from-orange-500 to-indigo-500 w-2/5 flex flex-col p-5 mt-5 mb-5 rounded-xl"

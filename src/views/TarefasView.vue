@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('/img/background.png')]">
+  <div class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('/img/background.jpg')]">
     <TheSidebar></TheSidebar>
     <div class="flex justify-center items-center">
       <div class="a w-10/12 h-full mb-5 p-8 bg-white rounded-lg shadow-md relative mt-5">
@@ -8,7 +8,7 @@
         </h1>
         <!--quadro -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4"> <!-- Ajustado o grid para telas menores -->
-          <div v-for="(tarefa, index) in tarefas" :key="index" class="p-4 border rounded-md w-[90%] flex flex-col items-start relative">
+          <div v-for="(tarefa, index) in tarefas" :key="index" class="p-5 border rounded-md w-[90%] flex  flex-col items-start relative mb-4">
             <p :class="{ 'line-through': tarefa.concluida }" class="break-words">{{ tarefa.texto }}</p>
             <label v-if="tarefa.data" class="mr-2">
               <i class="fas fa-calendar-alt"></i> {{ tarefa.data }}
@@ -16,14 +16,14 @@
             <label v-if="tarefa.hora">
               <i class="fas fa-clock"></i> {{ tarefa.hora }}
             </label>
-            <div class="absolute bottom-4 right-4">
-              <!-- Ícone para marcar como concluída -->
+            <div class="absolute bottom-4 right-0 ">
+              <!--icone para marcar como concluída-->
               <button @click="marcarComoConcluida(index)" class="text-green-600">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
               </button>
-              <!-- Ícone para excluir tarefa -->
+              <!--icone para excluir tarefa-->
               <button @click="removerTarefa(index)" class="text-red-600 ml-2">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>

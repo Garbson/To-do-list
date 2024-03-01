@@ -11,7 +11,7 @@
         'sidebar-close': !isSidebarOpen,
       }"
     >
-      <div class="sidebar-card">
+      <div class="sidebar-card space-x-7">
         <nav class="flex justify-center items-center p-7">
           <RouterLink
             to="/todolist"
@@ -19,7 +19,7 @@
             class="text-white hover:text-orange-500"
             >To do list</RouterLink
           >
-          <p class="text-white">||</p>
+          
 
           <RouterLink
             to="/tarefas"
