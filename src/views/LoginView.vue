@@ -3,18 +3,18 @@
     class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('/img/background.png')] text-center items-center object-center justify-center"
   >
     <div
-      class="Card  bg-gradient-to-r from-orange-500 to-indigo-500 w-2/5  flex flex-col  p-5 mt-5 mb-5 rounded-xl "
+      class="Card bg-gradient-to-r from-orange-500 to-indigo-500 w-2/5 flex flex-col p-5 mt-5 mb-5 rounded-xl"
     >
-      <!-- Mensagem de boas-vindas -->
+      <!--boas-vindas -->
       <p class="text-white text-4xl font-thin mb-5">Seja bem-vindo</p>
-      
+
       <!-- Card de Login -->
       <div
         class="flex flex-col content-center rounded-xl text-center justify-center"
         v-if="!isCadastro"
-      > 
+      >
         <label for="email" class="text-white text-xl font-thin">Email:</label>
-        <div class="inp bg-white w-2/3 h-10 rounded-lg  mb-5 mx-auto">
+        <div class="inp bg-white w-2/3 h-10 rounded-lg mb-5 mx-auto">
           <input
             type="email"
             id="email"
@@ -64,37 +64,33 @@ const user = {
 };
 
 function fazerLogin() {
-  // Simulação de validação de login (substitua por sua lógica real)
-  const usuariosCadastrados = JSON.parse(localStorage.getItem("usuarios")) || [];
+  const usuariosCadastrados =
+    JSON.parse(localStorage.getItem("usuarios")) || [];
   const usuarioEncontrado = usuariosCadastrados.find(
     (u) => u.email === user.email && u.senha === user.senha
   );
 
   if (usuarioEncontrado) {
-    // Armazenar os dados do usuário no Local Storage
     localStorage.setItem("user", JSON.stringify(usuarioEncontrado));
-    
-    // Definir a variável "auth" como true após o login bem-sucedido
+
     localStorage.setItem("auth", "true");
 
-    router.push("/viagens");
+    router.push("/todolist");
   } else {
     alert("Credenciais incorretas. Tente novamente.");
   }
 }
 </script>
 <style scoped>
-@media (max-width: 800px){
-  .Card{
+@media (max-width: 800px) {
+  .Card {
     width: 80%;
   }
-  .inp{
+  .inp {
     width: 90%;
-    }
-    .E{
-      width: 50%;
-    }
-
+  }
+  .E {
+    width: 50%;
+  }
 }
-
 </style>

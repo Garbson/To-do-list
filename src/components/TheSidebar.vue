@@ -14,7 +14,7 @@
       <div class="sidebar-card">
         <nav class="flex justify-center items-center p-7">
           <RouterLink
-            to="/viagens"
+            to="/todolist"
             @click="closeSidebar"
             class="text-white hover:text-orange-500"
             >To do list</RouterLink

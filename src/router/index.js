@@ -20,17 +20,12 @@ const router = createRouter({
       meta: { requiresAuth: true }, // Requer autenticação
     },
     {
-      path: "/viagens",
-      name: "Viagens",
-      component: () => import("../views/ViagensView.vue"),
+      path: "/todolist",
+      name: "TO DO LIST",
+      component: () => import("../views/TodolistView.vue"),
       meta: { requiresAuth: true }, // Requer autenticação
     },
-    {
-      path: "/rotina",
-      name: "rotina",
-      component: () => import("../views/RotinasView.vue"),
-      meta: { requiresAuth: true }, // Requer autenticação
-    },
+   
   ],
 });
 

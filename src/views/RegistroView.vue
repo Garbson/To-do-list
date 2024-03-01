@@ -77,7 +77,7 @@ function cadastrarUsuario() {
     usuariosCadastrados.push(user);
     localStorage.setItem("usuarios", JSON.stringify(usuariosCadastrados));
 
-    // Redirecionar para a página de login após o cadastro bem-sucedido
+    // Redirecionar para a página de login após o cadastro 
     router.push("/");
   }
 }

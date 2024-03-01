@@ -6,7 +6,7 @@
         <h1 class="text-3xl font-semibold text-blue-600 mb-4 flex justify-center">
           Quadro de Tarefas
         </h1>
-        <!-- Tarefas em forma de quadro -->
+        <!--quadro -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4"> <!-- Ajustado o grid para telas menores -->
           <div v-for="(tarefa, index) in tarefas" :key="index" class="p-4 border rounded-md w-[90%] flex flex-col items-start relative">
             <p :class="{ 'line-through': tarefa.concluida }" class="break-words">{{ tarefa.texto }}</p>
@@ -33,7 +33,7 @@
           </div>
         </div>
 
-        <!-- Modal para confirmar a adição de tarefa -->
+        <!--promp-->
         <div v-if="showModal" class="modal">
           <div class="modal-content">
             <span @click="showModal = false" class="close">&times;</span>
@@ -49,7 +49,7 @@ import { ref, onMounted } from 'vue';
 import TheSidebar from '../components/TheSidebar.vue';
 
 const tarefas = ref([]);
-const showModal = ref(false); // Variável reativa para controlar a exibição do modal
+const showModal = ref(false); 
 
 const carregarTarefasDoLocalStorage = () => {
   const tarefasSalvas = localStorage.getItem('tarefas');
