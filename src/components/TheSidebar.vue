@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gradient-to-r from-blue-600 to-indigo-500 mb-5">
+  <div class="bg-gradient-to-r from-blue-600 to-indigo-500">
     <button
       v-if="!isSidebarOpen"
       class="sidebar-toggle"
@@ -16,16 +16,16 @@
           <RouterLink
             to="/todolist"
             @click="closeSidebar"
-            class="text-white hover:text-orange-500"
-            >To do list</RouterLink
+            class="text-white hover:text-orange-500 text-lg"
+            >Adcionar Tarefa</RouterLink
+            
           >
-          
 
           <RouterLink
             to="/tarefas"
             @click="closeSidebar"
-            class="text-white hover:text-orange-500"
-            >Tarefas</RouterLink
+            class="text-white hover:text-orange-500 text-lg"
+            >Visualizar Tarefas</RouterLink
           >
         </nav>
       </div>

@@ -3,9 +3,9 @@
     class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('/img/background.jpg')]"
   >
     <TheSidebar></TheSidebar>
-    <div class="flex justify-center items-center">
+    <div class="flex justify-center items-center my-20">
       <div
-        class="max-w-lg w-11/12 h-2/5 mb-5 p-8 bg-white rounded-lg shadow-md relative mt-5"
+        class="max-w-xl w-11/12 h-2/5 mb-5 p-8 bg-white rounded-lg shadow-md relative"
       >
         <h1
           class="text-3xl font-semibold text-blue-600 mb-4 flex justify-center"
@@ -17,39 +17,46 @@
           <input
             v-model="novaTarefa.texto"
             @keyup.enter="adicionarTarefa"
-            class="w-full p-4 border rounded shadow-md "
+            class="w-full p-4 border rounded shadow-md"
             placeholder="Adicionar nova tarefa"
           />
         </div>
         <!-- Ajustado o grid para telas menores -->
-        <div class="mb-4 flex items-center">
-          <!-- Utilizando inputs padrão para data e hora -->
-          <div class="flex-1 relative">
-            <input
-              v-model="novaTarefa.data"
-              type="date"
-              class="w-full p-4 border rounded shadow-md"
-            />
-            <span
-              v-show="showDatepicker"
-              class="absolute right-0 top-0 bottom-0 flex items-center px-2 cursor-pointer"
-            >
-              <i class="far fa-calendar-alt"></i>
-            </span>
-          </div>
-          <div class="flex-1 relative ml-2">
-            <input
-              v-model="novaTarefa.hora"
-              type="time"
-              class="w-full p-4 border rounded shadow-md"
-            />
-            <span
-              v-show="showTimepicker"
-              class="absolute right-0 top-0 bottom-0 flex items-center px-2 cursor-pointer"
-            >
-              <i class="far fa-clock"></i>
-            </span>
-          </div>
+        
+        <div class="mb-4 flex items-center q-col-gutter-sm">
+          <!-- Utilizando componentes de data e hora do Quasar -->
+          <q-input filled class="w-1/2" v-model="novaTarefa.data" mask="date" :rules="['date']">
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="novaTarefa.data">
+                    <div class="row items-center justify-end">
+                      <q-btn v-close-popup label="Close" color="primary" flat />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+
+          
+          <q-input filled class="w-1/2" v-model="novaTarefa.hora" mask="time" :rules="['time']">
+        <template v-slot:append>
+          <q-icon name="access_time" class="cursor-pointer">
+            <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+              <q-time v-model="novaTarefa.hora">
+                <div class="row items-center justify-end">
+                  <q-btn v-close-popup label="Close" color="primary" flat />
+                </div>
+              </q-time>
+            </q-popup-proxy>
+          </q-icon>
+        </template>
+      </q-input>
         </div>
 
         <!-- adcionar tarefa -->
@@ -66,8 +73,8 @@
         <div id="custom-alert" v-if="showPrompt">
           <div class="card">
             <p>
-              A tarefa foi adicionada com sucesso,<br />Click em tarefas para
-              visualizar!
+              A tarefa foi adicionada com sucesso,<br />Click em 
+              visualizar Tarefas!
             </p>
             <button @click="fecharPrompt" class="text-sm">Fechar</button>
           </div>
@@ -89,8 +96,6 @@ const novaTarefa = ref({
 });
 const tarefas = ref([]);
 const showPrompt = ref(false);
-const showDatepicker = ref(false);
-const showTimepicker = ref(false);
 
 const fecharPrompt = () => {
   showPrompt.value = false;
@@ -166,5 +171,10 @@ onMounted(() => {
 
 .card button:hover {
   background-color: #0056b3;
+}
+@media (max-width: 800px) {
+  .card {
+    width: 90%;
+  }
 }
 </style>
