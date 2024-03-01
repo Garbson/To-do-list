@@ -222,12 +222,12 @@
   
   /* Estilizando o placeholder para data */
   input[type="date"]::placeholder {
-    color: #aaa;
+    color: black;
   }
   
   /* Estilizando o placeholder para hora */
   input[type="time"]::placeholder {
-    color: #aaa;
+    color: black;
   }
   
   /* Estilos para responsividade em dispositivos móveis */
