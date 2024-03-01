@@ -25,8 +25,8 @@
         
         <div class="mb-4 flex items-center q-col-gutter-sm">
           <!-- Utilizando componentes de data e hora do Quasar -->
-          <q-input filled class="w-1/2" v-model="novaTarefa.data" mask="date" :rules="['date']">
-            <template v-slot:append>
+          <q-input filled class="w-1/2 " v-model="novaTarefa.data" mask="date" :rules="['date']">
+            <template v-slot:prepend>
               <q-icon name="event" class="cursor-pointer">
                 <q-popup-proxy
                   cover
@@ -34,7 +34,7 @@
                   transition-hide="scale"
                 >
                   <q-date v-model="novaTarefa.data">
-                    <div class="row items-center justify-end">
+                    <div class="row items-center justify-start">
                       <q-btn v-close-popup label="Close" color="primary" flat />
                     </div>
                   </q-date>
@@ -63,7 +63,7 @@
         <div class="mb-4 text-center">
           <button
             @click="adicionarTarefa"
-            class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 text-sm mx-auto"
+            class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 text-sm "
           >
             Adicionar Tarefa
           </button>
