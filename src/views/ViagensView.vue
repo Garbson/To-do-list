@@ -24,6 +24,7 @@
           <div class="mb-4">
             <input
               v-model="novaTarefa.data"
+              placeholder="Data"
               type="date"
               class="w-full p-2 border rounded shadow-md"
             />
@@ -32,6 +33,7 @@
             <input
               v-model="novaTarefa.hora"
               type="time"
+              placeholder="Horário"
               class="w-full p-2 border rounded shadow-md"
             />
           </div>
@@ -223,7 +225,8 @@ input[type="date"] {
     border: 1px solid #ccc; /* Borda */
     border-radius: 4px; /* Arredondamento dos cantos */
     padding: 8px; /* Espaçamento interno */
-    font-size: 16px; /* Tamanho da fonte */
+    font-size: 16px;
+     /* Tamanho da fonte */
   }
 
   /* Estilizando o input para hora */
